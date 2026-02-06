@@ -43,6 +43,17 @@ h1 {
   line-height: 1.1;
 }
 
+.info {
+  display: flex;
+  justify-content: center;
+}
+
+input {
+  background-color: #f1f1f1;
+  color: #1a1a1a;
+  margin: 0px 3px;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;

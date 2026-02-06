@@ -1,10 +1,29 @@
 import styles from "./Task.module.css"
 
-const stage = ["To do", "In Progress", "Done"];
-
-function Task(props) {
+function Task({
+    title,
+    dueDate,
+    completed,
+    important,
+    onCheckCompleted,
+    onCheckImportant
+}) {
     return (
-        <div className={styles.task}>{props.title}</div>
+        <div className={`${styles.task} 
+        ${completed ? styles.completed : ""}
+        ${important ? styles.important : ""}`}
+            onClick={onCheckCompleted}>
+
+            <button className={styles.importantButton} onClick={(e) => {
+                e.stopPropagation();
+                onCheckImportant();
+            }}>⭐</button>
+            
+            <div>
+                <p>{title}</p>
+                <p className={styles.date}>Para: {dueDate}</p>
+            </div>
+        </div>
     )
 }
 

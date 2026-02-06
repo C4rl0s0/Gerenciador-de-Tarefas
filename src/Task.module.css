@@ -6,4 +6,31 @@
     font-size: 18px;
     font-weight: bold;
     margin: 10px;
+    position: relative;
+}
+
+.date {
+    text-align: right;
+    color: darkred;
+    font-size: 10px;
+    margin: 2px;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: green;
+}
+
+.important {
+    background: goldenrod;
+}
+
+.importantButton {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
 }
