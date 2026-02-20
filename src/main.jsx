@@ -7,18 +7,30 @@ import { use, useState } from 'react'
 function App() {
   const [tasks, setTasks] = useState([]);
 
+  const sortedTasks = [...tasks].sort((a, b) => {
+    if (a.important !== b.important) {
+      return b.important - a.important;
+    }
+
+    return new Date(a.dueDate) - new Date(b.dueDate)
+  })
+
   function addTask(task) {
-    setTasks([...tasks, { ...task, completed:false, important:false }])
+    setTasks([...tasks, {id: crypto.randomUUID(), ...task, completed:false, important:false }])
   }
 
-  function checkCompleted(index) {
-    setTasks(tasks.map((task, i) =>
-      i == index ? { ...task, completed: !task.completed } : task ));
+  function checkCompleted(id) {
+    setTasks(tasks.map(task =>
+      task.id == id ? { ...task, completed: !task.completed } : task ));
   }
 
-  function checkImportant(index) {
-    setTasks(tasks.map((task, i) =>
-      i == index ? { ...task, important: !task.important } : task ));
+  function checkImportant(id) {
+    setTasks(tasks.map(task =>
+      task.id == id ? { ...task, important: !task.important } : task ));
+  }
+
+  function deleteTask(id) {
+    setTasks(tasks.filter(task => task.id !== id))
   }
 
   return (
@@ -27,15 +39,16 @@ function App() {
       <TaskForm onAddTask={ addTask } />
 
       <div className="layout">
-        {tasks.map((task, index) => (
+        {sortedTasks.map(task => (
           <Task 
-            key={index}
+            key={task.id}
             title={task.title}
             dueDate={task.dueDate}
             completed={task.completed}
             important={task.important}
-            onCheckCompleted={() => checkCompleted(index)}
-            onCheckImportant={() => checkImportant(index)}
+            onCheckCompleted={() => checkCompleted(task.id)}
+            onCheckImportant={() => checkImportant(task.id)}
+            onCheckDelete={() => deleteTask(task.id)}
           />
         ))}
       </div>

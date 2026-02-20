@@ -6,7 +6,8 @@ function Task({
     completed,
     important,
     onCheckCompleted,
-    onCheckImportant
+    onCheckImportant,
+    onCheckDelete
 }) {
     return (
         <div className={`${styles.task} 
@@ -14,10 +15,17 @@ function Task({
         ${important ? styles.important : ""}`}
             onClick={onCheckCompleted}>
 
-            <button className={styles.importantButton} onClick={(e) => {
-                e.stopPropagation();
-                onCheckImportant();
-            }}>⭐</button>
+            <div class={styles.actions}>
+                <button className={styles.importantButton} onClick={(e) => {
+                    e.stopPropagation();
+                    onCheckImportant();
+                }}>⭐</button>
+
+                <button className={styles.deleteButton} onClick={(e) => {
+                    e.stopPropagation();
+                    onCheckDelete();
+                }}>❌</button>
+            </div>
             
             <div>
                 <p>{title}</p>

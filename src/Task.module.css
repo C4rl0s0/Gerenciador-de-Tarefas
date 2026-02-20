@@ -16,19 +16,26 @@
     margin: 2px;
 }
 
+.actions {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  display: flex;
+  gap: 3px;
+}
+
 .completed {
     text-decoration: line-through;
     color: green;
 }
 
 .important {
+    border: 2px solid gold;
     background: goldenrod;
 }
 
-.importantButton {
-    position: absolute;
-    top: 8px;
-    right: 8px;
+.importantButton, .deleteButton {
     background: none;
     border: none;
     font-size: 20px;
