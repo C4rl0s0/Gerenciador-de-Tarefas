@@ -2,17 +2,24 @@ import { createRoot } from 'react-dom/client'
 import Task from './Task.jsx'
 import TaskForm from './TaskForm.jsx'
 import './index.css'
-import { use, useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function App() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(() => {
+    const storedTasks = localStorage.getItem('tasks');
+    return storedTasks ? JSON.parse(storedTasks) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+  }, [tasks])
 
   const sortedTasks = [...tasks].sort((a, b) => {
     if (a.important !== b.important) {
-      return b.important - a.important;
+      return Number(b.important) - Number(a.important);
     }
-
-    return new Date(a.dueDate) - new Date(b.dueDate)
+    
+    return new Date(a.dueDate || 0) - new Date(b.dueDate || 0)
   })
 
   function addTask(task) {
